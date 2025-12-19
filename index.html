@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>1人あたり時間計算（秒表示）</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 16px;
+      max-width: 480px;
+      margin: auto;
+    }
+    input {
+      margin: 8px 0;
+      padding: 10px;
+      width: 100%;
+      font-size: 16px;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+    .result {
+      margin-top: 16px;
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>1人あたりの時間計算</h2>
+
+  <label>
+    上限時間（分）
+    <input type="number" id="totalTime" value="120">
+  </label>
+
+  <label>
+    人数
+    <input type="number" id="people" value="4">
+  </label>
+
+  <button onclick="calculate()">計算する</button>
+
+  <div class="result" id="result"></div>
+
+  <script>
+    function calculate() {
+      const totalTime = Number(document.getElementById("totalTime").value);
+      const people = Number(document.getElementById("people").value);
+      const result = document.getElementById("result");
+
+      if (totalTime <= 0 || people <= 0) {
+        result.textContent = "時間と人数を正しく入力してください";
+        return;
+      }
+
+      const perPersonSeconds = Math.round((totalTime * 60) / people);
+      const minutes = Math.floor(perPersonSeconds / 60);
+      const seconds = perPersonSeconds % 60;
+
+      result.textContent =
+        `1人あたり ${minutes}分${seconds}秒（${perPersonSeconds}秒）`;
+    }
+  </script>
+
+</body>
+</html>
