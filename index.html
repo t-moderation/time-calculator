@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>1人あたり時間計算（秒表示）</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+    }
+    input {
+      margin: 5px 0;
+      padding: 5px;
+      width: 150px;
+    }
+    button {
+      margin-top: 10px;
+      padding: 6px 12px;
+    }
+    .result {
+      margin-top: 15px;
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>1人あたりの時間計算</h2>
+
+  <label>
+    上限時間（分）<br>
+    <input type="number" id="totalTime" value="120">
+  </label>
+  <br>
+
+  <label>
+    人数<br>
+    <input type="number" id="people" value="4">
+  </label>
+  <br>
+
+  <button onclick="calculate()">計算する</button>
+
+  <div class="result" id="result"></div>
+
+  <script>
+    function calculate() {
+      const totalTime = Number(document.getElementById("totalTime").value);
+      const people = Number(document.getElementById("people").value);
+      const result = document.getElementById("result");
+
+      if (totalTime <= 0 || people <= 0) {
+        result.textContent = "時間と人数を正しく入力してください";
+        return;
+      }
+
+      // 1人あたりの秒数（四捨五入）
+      const perPersonSeconds = Math.round((totalTime * 60) / people);
+
+      // 分・秒に変換
+      const minutes = Math.floor(perPersonSeconds / 60);
+      const seconds = perPersonSeconds % 60
